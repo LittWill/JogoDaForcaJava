@@ -15,9 +15,15 @@ public class JogoDaForca {
     String letraTentativa = "";
     int numTentativas = 6, numVezes = 0;
 
-
     tema = showInputDialog(null, "Insira o tema da palavra", "Inserção de contexto", QUESTION_MESSAGE);
-    palavra = showInputDialog(null, "Insira a palavra para começar o jogo", "Tema: " + tema, PLAIN_MESSAGE);
+
+    do {
+        palavra = showInputDialog(null, "Insira a palavra para começar o jogo", "Tema: " + tema, PLAIN_MESSAGE);
+        if(palavra.trim().equals("")){
+            showMessageDialog(null, "O campo palavra não pode estar vazio!");
+        }
+    }while(palavra.trim().equals(""));
+
     int numLetrasPalavra = palavra.length();
     char[] palavraCopia = palavra.toCharArray();
 
@@ -34,6 +40,10 @@ public class JogoDaForca {
         if(numLetrasPalavra <= (palavra.length() / 2)){
 
             do {
+                if ((String.valueOf(palavraCopia).equalsIgnoreCase(palavra))){
+                    showMessageDialog(null, "Parabéns! Você acertou todas as letras!" + "\nPalavra: " + palavra);
+                    System.exit(1);
+                }
                 opt = Integer.parseInt(showInputDialog(null, Arrays.toString(palavraCopia).toUpperCase() + "\n\nVocê já acertou mais da metade da frase!\n1 - Chutar a palavra\n2 - Continuar adivinhando\n", "Tema: " + tema, PLAIN_MESSAGE));
                 if (opt != 1 && opt != 2){
                     showMessageDialog(null, "Opção inválida!\nInsira novamente!", "Erro!", ERROR_MESSAGE);
@@ -55,6 +65,7 @@ public class JogoDaForca {
                         break;
 
                     case 2: letraTentativa = showInputDialog(null, Arrays.toString(palavraCopia).toUpperCase() + "\n\nAdivinhe uma letra da palavra", "Tema: " + tema, PLAIN_MESSAGE);
+
                         break;
 
                         default: showMessageDialog(null, "Opção inexistente!", "Entrada inválida!", ERROR_MESSAGE);
@@ -91,7 +102,7 @@ public class JogoDaForca {
 }
 
 void mostrarCréditos(){
-    showMessageDialog(null, "Desenvolvido por Wilson Rodrigues\n14/03/2021");
+    showMessageDialog(null, "Desenvolvido por Wilson Rodrigues\n2021");
 }
 
 
@@ -112,7 +123,7 @@ void mostrarMenu(){
             break;
 
             case 3:
-                showMessageDialog(null, "Obrigado!");
+                showMessageDialog(null, "Obrigado!", "Até mais!", PLAIN_MESSAGE);
                 System.exit(1);
                 break;
 
